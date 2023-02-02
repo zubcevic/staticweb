@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/refresh.js"></script>
+  </head>
+  <body>
+<h3>Application Development Services</h3>
+<p>
+In the past I have worked on several large enterprise applications in the Financial Services sector. I started as a Java developer in 2000 with the initial implementations of Enterprise Application Servers. Since 2003 I became the lead developer and later on the software architect for several projects at large banks.
+The last 6 years, I have focussed more and more on the runtime environments and bridged the gaps between development and operations. 
+</p>
+<p>Today, as a solution architect, my software development knowledge and experience lets me make the right decisions and coach both Dev and Ops teams in implementing the desired solutions.</p>
+
+
+<h4>Technology blogs</h4>
+<p>
+<a class="menulink" id="blog-git">Signing git commits</a><br/>
+<a class="menulink" id="blog-webgoatstart">WebGoat Getting started developer guide</a><br/>
+<a class="menulink" id="blog-kickstart">Kickstart your application</a><br/>
+</p>
+
+<script nonce="2726c7f26c">
+    if (queryString[0] === '?' && queryString.substring(1).match(/^[a-z.-]+$/)) {
+		userLang = queryString.substring(1,3);
+    } else {
+        userLang = userLang.substring(0,2);
+    }
+    document.getElementById("blog-git").href = "index.html?"+userLang+"blog-git.html"; 
+    document.getElementById("blog-webgoatstart").href = "index.html?"+userLang+"blog-webgoatstart.html"; 
+    document.getElementById("blog-kickstart").href = "index.html?"+userLang+"blog-kickstart.html"; 
+</script>
+
+</body>
+</html>

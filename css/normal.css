@@ -1,0 +1,377 @@
+/* This is an internal stylesheet */
+
+/* Style for normal html classes */
+* {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: darkblue;
+}
+
+p {
+    font-size: 1.0em;
+}
+
+h3 {
+    color: darkblue;
+    font-style: italic;
+}
+
+#overallcont {
+    position: relative;
+    min-width: 100%;
+    min-height: 80%;
+}
+
+#displaycont {
+    min-width: 70%;
+    min-height: 80%;
+    position: relative;
+    visibility: visible;
+}
+
+span#topleftlogo {
+    position: absolute;
+    top: 10px;
+    right: -200px;
+}
+
+#toprightlogo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.privacymenulink {
+    text-decoration: underline;
+}
+
+.menulink {
+    background-color: aliceblue /*lightskyblue*/;
+    border: none;
+    color: darkblue;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    width: 50%;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+}
+
+.menulink:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.menunav a {
+    float: left;
+    display: block;
+    color: darkblue;
+    text-align: left;
+    padding: 10px 12px;
+    text-decoration: none;
+    font-size: 14px;
+    min-width: 165px;
+    cursor: pointer;
+}
+
+#titlecont {
+    position: fixed;
+    visibility: visible;
+    height: 1px;
+    min-width: 80%;
+    border-style: none;
+}
+
+#titletext {
+    position: absolute;
+    visibility: visible;
+    width: 100%;
+    left: 350px;
+    border-style: none;
+}
+
+#menucont {
+    position: fixed;
+    visibility: visible;
+    top: 170px;
+    left: 10px;
+    width: 180px;
+    min-height: 100% - 170px;
+    /*border-style:solid;*/
+}
+
+#twitterdiv {
+    position: fixed;
+    visibility: visible;
+    top: 170px;
+    right: 0px;
+    height: 15vh;
+    width: 20%;
+}
+
+
+#messagecont {
+    position: relative;
+    top: 0px;
+    left: 210px;
+    width: 60%;
+    min-height: 400px;
+    overflow: visible;
+}
+
+#bannercont {
+    position: relative;
+    text-align: center;
+    font-size: 0.9em;
+    min-width: 100%;
+    height: 100px;
+    bottom: -170px;
+}
+
+@media screen and (max-width: 1050px) and (orientation:landscape) {
+    
+    #topleftlogo {
+        left: 0vh;
+    }
+    #topleftlogo img {
+        top: 50vh;
+        position: absolute;
+        z-index: 3;
+        /*display: none;*/
+    }
+    #toprightlogo img {
+        display: none;
+    }
+    h1 {
+        display: none;
+    }
+    #menucont {
+        position: fixed;
+        /*display: none;*/
+        top: 0vh;
+        width: 20%;
+        z-index: 2;
+        background-color: white;
+    }
+}
+
+@media screen and (max-width: 980px) {
+    #twitterdiv {
+        display: none;
+    }
+}
+
+@media screen and (orientation:portrait) {
+
+    * {
+        font-size: calc(0.8em + 1vmin);
+        width: 90vw;
+    }
+
+    p {
+        font-size: calc(0.8em + 1vim);
+    }
+
+    span {
+        font-size: calc(1.2em + 1vim);
+        vertical-align: middle;
+    }
+
+    .menunav a {
+        color: darkblue;
+        text-align: center;
+        text-decoration: none;
+        font-size: calc(0.6em + 1.3vmin);
+        height: 1.5vh;
+        width: 90vw;
+        display: inline;
+        vertical-align: middle;
+    }
+
+    /* hides twitter from the screen portrait view */
+    #twitterdiv {
+        display: none;
+        position: absolute;
+        top: 270vh;
+        left: 10px;
+        width: 90vw;
+        height: 50%;
+        z-index: 2;
+    }
+
+    .menulink {
+        color: darkblue;
+        font-size: calc(0.7em + 2.3vmin);
+        width: 80%;
+    }
+
+    #menucont {
+        position: fixed;
+        top: 17vh;
+        width: 100%;
+        z-index: 2;
+        background-color: white;
+    }
+
+    #titlecont {
+        position: fixed;
+        width: 100%;
+        top: 0vh;
+        left: 0px;
+        height: 20vh;
+        z-index: 2;
+        background-color: white;
+    }
+
+    #toprightlogo img {
+        position: absolute;
+        top: 0vh;
+        right: 0px;
+        height: 15vh;
+        width: 25vw;
+    }
+
+    #topleftlogo img {
+        top: 0vh;
+        left: 15px;
+        height: 17vh;
+        width: 50vw;
+    }
+
+    #topleftlogo {
+        position: absolute;
+        top: 0px;
+        left: 10px;
+        height: 17vh;
+    }
+
+    #messagecont {
+        position: relative;
+        top: 60vh;
+        left: 15px;
+        width: 90vw;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    #bannercont {
+        /*display: none;*/
+        position: relative;
+        top: 60vh;
+        left:0px;
+        width: 100%;
+        background-color: white;
+        z-index: 2;
+    }
+
+    #bannercont img {
+        position: relative;
+        width: 15vw;
+        bottom: 0vh;
+        height: 8vh;
+        background-color: white;
+    }
+
+    #displaycont {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        top: 0vh;
+    }
+
+}
+
+#watermark {
+    color: #d0d0d0;
+    font-size: 100pt;
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    z-index: 1001;
+    left: 100px;
+    top: 0px;
+}
+
+
+pre {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-left: 3px solid #f36d33;
+    color: #666;
+    page-break-inside: avoid;
+    font: normal normal 14px/16px "Courier New", Courier, Monospace;
+    line-height: 1.0;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    padding: .5em 1em;
+    display: block;
+    word-wrap: break-word;
+    margin-left: 30px;
+    overflow: auto;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    counter-reset: line;
+}
+
+pre:hover,
+pre:focus {
+    border-left: 3px solid #338df3;
+}
+
+div.code {
+    position: relative;
+}
+
+pre+button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+pre .line-number {
+    user-select: none;
+    float: left;
+    margin: 0 1em 0 -1em;
+    border-right: 1px solid;
+    text-align: right;
+}
+
+pre .line-number span {
+    display: block;
+    padding: 0 .5em 0 1em;
+}
+
+pre .cl {
+    display: block;
+    clear: both;
+}
+
+.codeButton {
+    background-color: transparent;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2x;
+    border: 1px solid;
+    display: inline-block;
+    cursor: pointer;
+    color: #000;
+    font-family: Arial;
+    font-size: 14px;
+    padding: 2px 2px;
+    text-decoration: none;
+    margin: 2px 2px;
+}
+
+.codeButton:hover {
+    background-color: transparent;
+}
+
+.codeButton:active {
+    top: 1px;
+}

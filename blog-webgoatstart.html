@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/refresh.js"></script>
+  </head>
+  <body>
+<h4>Developer Getting Started Guide for WebGoat</h4>
+<!-- wp:paragraph -->
+<p>This page is for tips and tricks for developers who want to build WebGoat themselves and think about contributing to WebGoat.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h4 id="basic-understanding"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#basic-understanding"></a>Basic understanding</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Development and test of WebGoat can be done on Microsoft Windows, Apple MacOS or a Linux based OS. WebGoat is finally packaged and released as Java jar files and docker containers on Docker Hub. The end result should be runnable on all of the mentioned operating systems.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>WebGoat also supports multiple languages. The unit tests and integration tests should be able to handle localisation and user zone settings.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Travis is used to test code that is pushed to GitHub. Everyone with a GitHub account can contribute by creating a fork of WebGoat, then create a branch off of develop in their local repository and making a cross repository pull request. This will trigger the Travis build. Pull requests require that a contributor signs an agreement. Otherwise the pull request can never be merged.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h4 id="pre-requisites"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#pre-requisites"></a>Pre-requisites</h4>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul><li>Windows, MacOS, Linux operating system</li><li>Maven 3.5 or higher</li><li>Java 11 up to Java 13 (which are both tested in the Travis build)</li><li>An IDE will be handy: e.g. Visual Studio Code, Eclipse or IntelliJ. Make sure that the IDE has the extensions to support Lombok.</li><li>(optionally) docker (e.g. Docker Desktop for Windows, MacOS)</li><li>Browser to test manually: Safari, Firefox, Chrome, Edge</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h4 id="free-ports"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#free-ports"></a>Free ports</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>When you build or run the application with default settings make sure that the following ports are not in use:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>8080</li><li>9001</li><li>9090</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h4 id="building-from-maven"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#building-from-maven"></a>Building from Maven</h4>
+<!-- /wp:heading -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><p>git clone&nbsp;https://github.com/yourgitaccount/WebGoat.git<br>cd WebGoat <br>git checkout -b yourbranch <br>mvn clean install</p></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:heading -->
+<h4 id="default-components"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#default-components"></a>Default components</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The Java build results in two ‘executable’ jar files:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>WebGoat in webgoat-server/target</li><li>WebWolf in webwolf/target</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h4 id="run-webgoat-from-generated-jar"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#run-webgoat-from-generated-jar"></a>Run WebGoat from generated jar</h4>
+<!-- /wp:heading -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><p>java -jar webgoat-server/target/webgoat-server-v8.2.0-SNAPSHOT.jar</p></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:paragraph -->
+<p>This starts WebGoat with the UI on&nbsp;<a href="http://127.0.0.1:8080/WebGoat">http://127.0.0.1:8080/WebGoat</a>&nbsp;And an hsql database on port 9001 which has persistent data stored in .webgoat folder.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h4 id="run-webwolf-from-generated-jar"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#run-webwolf-from-generated-jar"></a>Run WebWolf from generated jar</h4>
+<!-- /wp:heading -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><p>java -jar webwolf/target/webwolf-v8.2.0-SNAPSHOT.jar</p></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:paragraph -->
+<p>This starts WebWolf with an UI on&nbsp;<a href="http://127.0.0.1:9090/WebWolf">http://127.0.0.1:9090/WebWolf</a>&nbsp;whixh is connected to the database on port 9001</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h4 id="first-time-usage"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#first-time-usage"></a>First time usage</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>When you open WebGoat for the first time, you will see the login screen. If you do not have a username and password, then you can use the register function to create a new user. As long as you do not delete the .webgoat folder that username and your results will be present when you use it the next time. Even if you stop and start the application.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h4 id="project-structure"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#project-structure"></a>Project structure</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>At the root level there is a overall parent pom.xml which contains all the references to all components of WebGoat and WebWolf. Below this level there are a few main folders:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>webgoat-container<ul><li>A maven java project that contains the core or framework of the WebGoat application</li><li>application-webgoat.properties is the main property file used for Spring Boot</li></ul></li><li>webgoat-lessons<ul><li>Folder that contains a lot of sub maven project folders, where each folder is a lesson on its own</li></ul></li><li>webgoat-server<ul><li>Contains the Spring Boot application for WebGoat</li><li>org.owasp.webgoat.StartWebGoat.java is the main class</li></ul></li><li>webwolf<ul><li>Contains the Spring Boot application for WebWolf</li><li>org.owasp.webwolf.WebWolf.java is the main class</li><li>application-webwolf.properties is the main property file for Spring Boot</li></ul></li><li>webgoat-integration-tests</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h4 id="building-your-own-webgoat-lesson"><a href="https://github.com/WebGoat/WebGoat/wiki/Developer-Getting-Started#building-your-own-webgoat-lesson"></a>Building your own WebGoat lesson</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>WebGoat comes with an built-in lesson on how to build your own WebGoat lesson. Make sure you first complete this exercise before you try to add a new lesson.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":272,"sizeSlug":"large","linkDestination":"media"} -->
+<img src="img/webgoat.png" width="85%" alt="" class="wp-image-272"/>
+<!-- /wp:image -->
+
+</body>
+</html>

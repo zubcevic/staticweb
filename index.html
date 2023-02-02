@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<meta name="keywords" content="Java Software Development, Information Security, Performance Monitoring and Tuning, Deployment Automation">
+<meta name="description" content="Zubcevic.com IT consultancy and engineering services">
+<meta name="author" content="Rene Zubcevic">
+
+
+<link rel="stylesheet" type="text/css" href="css/normal.css">
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+
+<script src="js/jquery.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+<script src="js/d3.js"></script>
+<script src="js/normal.js"></script>
+
+<title lang="en">Zubcevic.com - IT consultancy and engineering services</title>
+
+</head>
+<body>
+
+
+<div id="overallcont" >
+
+
+<div id="displaycont">
+
+<header role="banner">
+<div id="titlecont" >
+<span id="topleftlogo"><a href="index.html" alt="home page"><img src="img/zlogo.png" height="120" alt="company logo" /></a></span> 
+<span id="toprightlogo"><img src="img/IMG_0841.JPG" height="120" alt="photo of me" /></span>
+</div>
+</header>
+
+<nav role="navigation">
+<div id="menucont" class="menunav">
+<h1>ICT services</h1>
+<a class="menulink" id="softdev.html" alt="software development"><span id="softdev"></span></a>
+<a class="menulink" id="infosec.html" alt="information security"><span id="infosec"></span></a>
+<a class="menulink" id="perftune.html" alt="performance tuning"><span id="perftune"></span></a>
+<a class="menulink" id="depauto.html" alt="deployment automation"><span id="depauto"></span></a>
+<a class="menulink" id="covid.html" alt="covid dashboard"><span id="covid"></span></a>
+</div>
+</nav>
+
+<div id="twitterdiv">
+<script async src="https://platform.twitter.com/widgets.js"></script>
+<a class="twitter-timeline"  href="https://twitter.com/zubcevicdotcom"  data-widget-id="418826580136189952">Tweets van @zubcevicdotcom</a>
+<img width="270" src="https://api.thegreenwebfoundation.org/greencheckimage/www.zubcevic.com" alt="This website is hosted Green - checked by thegreenwebfoundation.org">
+
+</div>
+
+<main role="main">
+<div id="messagecont"></div>
+</main>
+
+<footer role="contentinfo">
+<div id="bannercont" >
+<p>
+<a id="en-link" title="English" alt="english language"><img src="img/united-kingdom-flag-xs.png" height="20" alt="uk flag" /></a>&nbsp;
+<a id="nl-link" title="Nederlands" alt="nederlands"><img src="img/flag-png-xs.png" height="20" alt="nederlandse vlag" /></a>&nbsp;
+<a id="ba-link" title="Bosanski" alt="bosanski"><img src="img/bih-flag-xs.png" height="20" alt="bosnian flag" /></a>&nbsp;
+<a id="cn-link" title="中文" alt="中文"><img src="img/china-flag-xs.png" height="20" alt="chinese flag" /></a><br/>
+(c) Zub&#269;evi&#263;.com 2022<br/>KVK 59502606<br/><a class="privacymenulink" id="privacy-link" alt="privacy statement"><span id="privacy"></span></a>
+</p>
+</div>
+</footer>
+
+</div><!-- displaycont -->
+
+
+
+</div><!-- overallcont -->
+
+<script nonce="2726c7f26c">
+    if (queryString[0] === '?' && queryString.substring(1).match(/^[a-z.-]+$/)) {
+		userLang = queryString.substring(1,3);
+    } else {
+        userLang = userLang.substring(0,2);
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      var els = document.getElementsByClassName('menulink');
+      Array.prototype.forEach.call(els, function(element) {
+        element
+          .href = "index.html?"+userLang+jQuery(element).attr('id'); 
+      });
+
+      document.getElementById("en-link").href = "index.html?enintro"; 
+      document.getElementById("nl-link").href = "index.html?nlintro"; 
+      document.getElementById("ba-link").href = "index.html?baintro"; 
+      document.getElementById("cn-link").href = "index.html?cnintro"; 
+
+      document.getElementById("privacy-link").href = "index.html?"+userLang+"privacy"; 
+       
+    });
+</script>
+
+</body>
+</html>

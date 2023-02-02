@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/refresh.js"></script>
+  </head>
+  <body>
+<h4>Kickstart your application before adding full load</h4>
+<p>
+A common challenge for most application is the response time of the initial incoming requests. The initial requests trigger a lot of initialization code caused by opening connections and setting up connection pools as well as instantiating objects for singletons etc.
+
+If your application is response time critical, you need something extra to prevent that these initializations effect your client request and related service level agreements. E.g. 1 initial response of 30 seconds could cause a timeout exception in your clients and will have a devastating effect on your SLA if you have to realize an average response of say 50 ms.
+
+This article will describe some ways to kickstart your application in a way that the real client application requests will be handled fast from the start.
+</p>
+<h4>Manage the incoming load</h4>
+<p>
+Make sure that when you add an application instance, the load is slowly increased on the new instance when it is marked available.
+
+In case you have or want to restart your application for an application upgrade or other reason, you have to:
+<ul>
+ 	<li>&nbsp;Mark the instance as unavailable&nbsp;<em><strong>and</strong></em> wait for all existing connections to be closed.
+<ul>
+ 	<li>Usually the existing http(s) connections will remain used until the socket is closed. (In apache http e.g. based on MaxKeepAliveRequests and KeepAliveTimeout</li>
+</ul>
+</li>
+ 	<li>Then do your maintenance or upgrade followed by a health check and/or canary test and the kickstart requests as mentioned in the next section</li>
+ 	<li>Then mark the instance as available and allow incoming requests to the new instance (in a controlled way)</li>
+</ul>
+</p>
+<h4>Kickstart the application with near-to-real requests</h4>
+<p>
+Suppose you are able to send in real requests, then everything gets initiated perfectly. But suppose you build a payment system and you insert payments, then these payments will get processed or rejected, but it will be undesirable that such payments are done. So a near-to-real request which triggers almost the same execution path is a better solution.
+
+A solution can consist of the following elements:
+<ol>
+ 	<li>Extra code in the application to support and secure this</li>
+ 	<li>Bash scripts to send kickstart requests</li>
+ 	<li>Extra configuration in HTTP Server, Linux to allow requests in a limited and secured way</li>
+</ol>
+</p>
+<h4>1a Code that executes at startup before the application becomes available</h4>
+<p>
+In Java EE or Spring you can define code that automatically starts when the application is started. This is a perfect place to do some basic initializations that benefit the whole application:
+<ul>
+ 	<li>Do some database queries to open up connections to the database</li>
+ 	<li>Do some database queries on configuration data to fill up caches</li>
+ 	<li>Call some backend services to open up http(s) connections, MQ connections or other resource related connections</li>
+ 	<li>Initialize (hardware) keystores and do some singing or validation</li>
+</ul>
+However this will not really initialize your own SOAP and REST service end points.
+</p>
+<h4>1b Code that detects kickstart requests and stops the request just-in-time</h4>
+<p>A near-to-real request must have some elements that can be detected so these will be treated in the right way. Basic steps include:
+<ul>
+ 	<li>Detect the origin</li>
+ 	<li>Detect normal kickstart request or attempt to misuse the kickstart functionality (fraud)</li>
+ 	<li>Change the request in a way that the end result is not the same as a real request. E.g. a kickstart request does a lot of steps but in the end it will be rejected and not stored or logged as incidents.</li>
+</ul>
+</p>
+<h4>2 Bash or other tools that send kickstart request</h4>
+<p>You need something that sends out a kickstart request and that something is only to be executed within the same instance of the application by the something that automatically starts the application.</p>
+<h4>3 Special configuration in the middleware/infrastructure</h4>
+<p>You need some protective measures such that the kickstart cannot be accessed outside of the instance itself.</p>
+<h4>Results of implementing such kickstart requests</h4>
+<p>
+The results of implementing such a solution (I cannot share to much details) is really worth the while.
+
+The initial request in my case was 19 seconds, and all subsequent requests were under 100 ms. Where you still could see that some code paths for the real request were still new, but the greatest reduction in response times were already realized.
+</p>
+
+</body>
+</html>

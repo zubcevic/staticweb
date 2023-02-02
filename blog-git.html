@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/refresh.js"></script>
+  </head>
+  <body>
+<h4>Signing commits in Git - How and why</h4>
+
+<p>Git is a tool for controlling versions of source code and nowadays of anything as code. This article is intended to help you get started in using the option to sign your commits and tags.</p>
+
+
+
+<p>As a reminder I would like to point out that when you clone a git repository, you clone all of the original repository including all commits, tags and changes from the start. Each commit contains meta information like the user name and user email. However, these user names are just set in your own git client configuration:</p>
+
+
+
+<pre class="wp-block-code"><code>git config --global user.name "Someone" 
+git config --global user.email someone@outthere.zz</code></pre>
+
+
+
+<p>When you make changes and create a commit this name and email address will be stored in the git repository. And when you push these changes, this information will be available in the remote repositories as well. So no real proof of who really made the commit.</p>
+
+
+
+<h4 id="authentication-of-the-committer">Authentication of the committer</h4>
+
+
+
+<p>A first solution to this problem is to use a centrally managed git server. Examples of these are GitHub, Bitbucket, GitLab, and others. All of these managed git servers offer authentication of user access to the repositories as well as other possible restrictions (like rewriting history). All of this extra information is not stored in the git repository itself, but in a datastore used by the managed git server. With this information, you can find out the user id which was used to authenticate with when the commit was pushed. All of these managed git environments use username/password or SSH key based access for authentication.</p>
+
+
+
+<h4 id="is-this-enough-do-we-need-signing-as-well">Is this enough? Do we need signing as well?</h4>
+
+
+
+<p>The original concept of git was based on a collection of equal git repositories. So in this concept there was a need to be able to trust commits of participants in a repository. Therefore, Git supports signing of commits and tags. And, the signing information is also stored in the Git repositories. The whole concept is based on Pretty Good Privacy, which has a well known implementation of GPG (GnuPG) on Linux, Windows, MacOS, and others. So these signatures in combination with the exchange of the public keys between trusted parties, makes it possible to trust the commit or tag. As these are stored in the repository, you could even move from one managed git server/cloud to another git server/cloud and still have the same trust as it is all contained within the repository.</p>
+
+
+
+<h4 id="example-signing-tag-in-a-cicd-pipeline">Example: Signing tag in a CICD pipeline</h4>
+
+
+
+<p>One use case where signing is also of value even when a managed git server is used, is pushing a signed label as an audit step in a CICD (continuous integration/continuous delivery) pipeline. A tag is a unique label that points to a certain commit which represents the code as it was at that moment in time. Signing the tag means that this label has been used by the owner of the private key and that all others can verify that the label is valid and signed by the expected person. A CICD service account could for instance sign and push this tag as part of the processes of delivering software to production. </p>
+
+
+
+<h4 id="example-github-signs-commits-made-from-the-gui">Example: GitHub signs commits made from the GUI</h4>
+
+
+
+<p>Another example is GitHub, which automatically signs commits on behalf of you when you make changes directly from the WEB UI. </p>
+
+
+
+<h4 id="step-1-install-gpg">Step 1: Install GPG</h4>
+
+
+
+<p>Before you can do anything with gpg based signatures in git, you must install gpg and configure git to know which gpg program to use:</p>
+
+
+
+<pre class="wp-block-code"><code>#e.g. on a Mac you can install gpg using brew
+brew install gpg
+
+#now instruct git to use this:
+git config --global gpg.program gpg</code></pre>
+
+
+
+<p>Now, you can check to see the signature data from the commits, by:</p>
+
+
+
+<pre class="wp-block-code"><code>git log --show-signature </code></pre>
+
+
+
+<p>The output on a GitHub based repository could already contain some entries like this:</p>
+
+
+
+<pre class="wp-block-code"><code>commit d8c7e72cbed11411b80995d415311c7fb6399d9a
+gpg: Signature made do 10 dec 19:23:46 2020 CET
+gpg:                using RSA key <span class="has-inline-color has-vivid-purple-color">4AEE18F83AFDEB23</span>
+gpg: Can't check signature: No public key
+Author: Someone &lt;git@outthere.zz&gt;
+Date:   Thu Dec 10 19:23:46 2020 +0100</code></pre>
+
+
+
+<h4 id="step-2-download-the-gpg-public-key-of-github">Step 2: download the GPG Public key of GitHub</h4>
+
+
+
+<p>The highlighted key is referring to the id of the public key of the GitHub web-flow agent that automatically signs commits when you are logged in and make commits from the GitHub UI. As you can see, you do not have the public key from the GitHub signer yet. You can get this key and store it in your GPG public keys like this:</p>
+
+
+
+<pre class="wp-block-code"><code>curl https://github.com/web-flow.gpg | gpg --import
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   919  100   919    0     0   3829      0 --:--:-- --:--:-- --:--:--  3829
+gpg: key 4AEE18F83AFDEB23: public key "GitHub (web-flow commit signing) &lt;noreply@github.com&gt;" imported
+gpg: Total number processed: 1
+gpg:               imported: 1</code></pre>
+
+
+
+<p>Now the result from git log --show-signature will be something like:</p>
+
+
+
+<pre class="wp-block-code"><code>commit d8c7e72cbed11411b80995d415311c7fb6399d9a
+gpg: Signature made do 10 dec 19:23:46 2020 CET
+gpg:                using RSA key 4AEE18F83AFDEB23
+gpg: Good signature from "<span class="has-inline-color has-vivid-green-cyan-color">GitHub (web-flow commit signing) &lt;noreply@github.com&gt;</span>" &#91;<span class="has-inline-color has-luminous-vivid-amber-color">unknown</span>]
+gpg: WARNING: <span class="has-inline-color has-vivid-red-color">This key is not certified with a trusted signature!</span>
+gpg:          <span class="has-inline-color has-vivid-red-color">There is no indication that the signature belongs to the owner.</span>
+Primary key fingerprint: 5DE3 E050 9C47 EA3C F04A  42D3 4AEE 18F8 3AFD EB23
+Author: René Zubcevic &lt;git@zubcevic.com&gt;
+Date:   Thu Dec 10 19:23:46 2020 +0100</code></pre>
+
+
+
+<h4 id="step-3-trust-a-public-key">Step 3: Trust a public key</h4>
+
+
+
+<p>You can see that you can now verify the signature, but you still do not have trust in the used public key, and therefore have no trust in the signature <span class="has-inline-color has-luminous-vivid-amber-color">[unknown]</span> and no one <span class="has-inline-color has-vivid-red-color">certified</span> this trust. PGP has a web of trust model which is quite extensive. As you have downloaded the GPG public key from a trusted connection, you can safely trust this public key. This can be done by:</p>
+
+
+
+<pre class="wp-block-code"><code>gpg --edit-key noreply@github.com
+gpg (GnuPG/MacGPG2) 2.2.24; Copyright (C) 2020 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+
+pub  rsa2048/4AEE18F83AFDEB23
+     created: 2017-08-16  expires: never       usage: SC  
+     trust: unknown       validity: unknown
+&#91; unknown] (1). GitHub (web-flow commit signing) &lt;noreply@github.com&gt;
+
+gpg&gt; trust
+pub  rsa2048/4AEE18F83AFDEB23
+     created: 2017-08-16  expires: never       usage: SC  
+     trust: unknown       validity: unknown
+&#91; unknown] (1). GitHub (web-flow commit signing) &lt;noreply@github.com&gt;
+
+Please decide how far you trust this user to correctly verify other users' keys
+(by looking at passports, checking fingerprints from different sources, etc.)
+
+  1 = I don't know or won't say
+  2 = I do NOT trust
+  3 = I trust marginally
+  4 = I trust fully
+  5 = I trust ultimately
+  m = back to the main menu
+
+Your decision? 4
+
+pub  rsa2048/4AEE18F83AFDEB23
+     created: 2017-08-16  expires: never       usage: SC  
+     trust: full          validity: unknown
+&#91; unknown] (1). GitHub (web-flow commit signing) &lt;noreply@github.com&gt;
+Please note that the shown key validity is not necessarily correct
+unless you restart the program.
+
+gpg&gt; quit</code></pre>
+
+
+
+<p>Now [unknown] will have changed to [full] trust, but the message about certification will still be there. In order to get rid of these messages, you have to sign this trusted public key with your own private GPG key which is the process of certification by you. So you also need a private GPG key, which then can be used for signing your own commits in your local repository as well.</p>
+
+
+
+<h4 id="step-4-generate-your-own-private-gpg-key">Step 4: generate your own private GPG key</h4>
+
+
+
+<pre class="wp-block-code"><code>gpg --full-generate-key</code></pre>
+
+
+
+<p>For GitHub you should choose RSA and a key strength of 4096. Choose no expiry and it is easy to not use a passphrase as long as you are the only one with access to the key. Then the menu will ask for a realm and an email. Make sure that these match the user.name and user.email you use on your GitHub account.</p>
+
+
+
+<h4 id="step-5-sign-the-public-github-key">Step 5: Sign the public GitHub key</h4>
+
+
+
+<p>With this newly generated key, you can sign the GitHub public key:</p>
+
+
+
+<pre class="wp-block-code"><code>gpg --lsign-key noreply@github.com</code></pre>
+
+
+
+<p>Now the git log --show-signature will no longer show warnings about these signatures.</p>
+
+
+
+<h4 id="step-6-sign-your-own-commits-and-tags">Step 6: Sign your own commits and tags</h4>
+
+
+
+<p>Now you can sign commits and tags as follows:</p>
+
+
+
+<pre class="wp-block-code"><code>gpg --list-secret-keys # get the id of your secret key
+git config --global user.signingkey 8503774BDD1AB580AC91CFE69716041EBCCEAFF1 # refer git to this key
+git commit -S -m "updated Readme and content"
+git tag -s -a v1.0 -m "my v1 version"</code></pre>
+
+
+
+<p> Notice that the commit uses a capital S and the tag a lowercase s. If you always want to sign every commit, you can set the config: </p>
+
+
+
+<pre class="wp-block-code"><code>git config --global commit.gpgsign true</code></pre>
+
+
+
+<h4 id="step-7-export-and-share-your-public-gpg-key">Step 7: Export and share your public GPG key</h4>
+
+
+
+<p>Now if you want GitHub to show that your commits can be trusted and if you want GitHub to be used as a means to share your public key, you must extract your public key and enter it in the GitHub section of your profile where you share the public keys.</p>
+
+
+
+<pre class="wp-block-code"><code>gpg --armor --export 8503774BDD1AB580AC91CFE69716041EBCCEAFF1</code></pre>
+
+
+
+<p>Now upload the output to GitHub. Now anyone, can download and install this public key in the same way we did with the GitHub public key. However, now you will have to use your own GitHub account as part of the url:</p>
+
+
+
+<pre class="wp-block-code"><code>#import public key
+curl https://github.com/zubcevic.gpg | gpg --import</code></pre>
+
+
+
+<p>More information and examples can be found here:</p>
+
+
+
+<p>
+    <ol>
+        <li><a rel="noreferrer noopener" href="https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages" target="_blank">https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages</a> </li>
+        <li><a rel="noreferrer noopener" href="https://en.wikipedia.org/wiki/Web_of_trust" target="_blank">https://en.wikipedia.org/wiki/Web_of_trust</a></li>
+    </ol>
+</p>
+
+
+</body>
+</html>
