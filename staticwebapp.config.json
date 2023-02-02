@@ -1,4 +1,9 @@
 { 
+"responseOverrides": {
+    "404": {
+      "rewrite": "/index.html"
+    }
+  },
 "globalHeaders": {
    "content-security-policy": "base-uri https://www.zubcevic.com ;default-src 'none' https://www.zubcevic.com https://platform.twitter.com; style-src 'self' 'nonce-vtXRMe3mGCb' https://platform.twitter.com ; script-src 'self' 'nonce-2726c7f26c' 'nonce-EDNnf03nceIOfn39fn3e9h3sdfa' https://platform.twitter.com https://cdn.syndication.twimg.com/timeline/profile ;frame-src 'self' https://platform.twitter.com https://cdn.syndication.twimg.com; img-src 'self' https://syndication.twitter.com https://api.thegreenwebfoundation.org https://platform.twitter.com https://ton.twimg.com https://pbs.twimg.com ;frame-ancestors 'none';object-src 'none';",
    "X-Frame-Options": "SAMEORIGIN",
