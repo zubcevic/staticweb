@@ -8,15 +8,15 @@ async function drawLineChart() {
     //const datasetOriginal = await d3.csv("https://www.zubcevic.com/covid19.csv");
   
   
-    const selectedDataColumn = 'Kliniek_Bedden_Nederland'; //'IC_Bedden_COVID';
-    const nonCovidBeds = 'IC_Bedden_Non_COVID_Nederland';
-    const covidBeds = 'IC_Bedden_COVID_Nederland';
-    const covidBedsNew = 'IC_Bedden_COVID_Internationaal';
+    const selectedDataColumn = 'kliniek_bezetting_covid'; //'IC_Bedden_COVID';
+    const nonCovidBeds = 'IC_bezetting_noncovid';
+    const covidBeds = 'IC_bezetting_covid';
+    const covidBedsNew = 'IC_bezetting_covid_internationaal';
     const yAccessor = (d) => d[selectedDataColumn];
     const yAccessor2 = (d) => d[covidBeds];
     const yAccessor3 = (d) => d[nonCovidBeds];
     const dateParser = d3.timeParse("%d-%m-%Y");
-    const xAccessor = (d) => dateParser(d["Datum"]);
+    const xAccessor = (d) => dateParser(d["datum"]);
     console.log("loaded covid data",datasetOriginal);
   
     const dataset = datasetOriginal.filter(function(d){
