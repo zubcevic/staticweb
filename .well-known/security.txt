@@ -1,0 +1,4 @@
+Contact: mailto:admin@zubcevic.com
+Expires: 2023-12-31T11:00:00.000Z
+Preferred-Languages: en, nl
+Canonical: https://www.zubcevic.com/.well-known/security.txt
