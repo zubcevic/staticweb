@@ -1,4 +1,25 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
 Contact: mailto:admin@zubcevic.com
 Expires: 2023-12-31T11:00:00.000Z
+Encryption: https://github.com/zubcevic.gpg
 Preferred-Languages: en, nl
 Canonical: https://www.zubcevic.com/.well-known/security.txt
+-----BEGIN PGP SIGNATURE-----
+
+iQJGBAEBCAAwFiEEhQN3S90atYCskc/mlxYEHrzOr/EFAmPdElcSHHJlbmVAenVi
+Y2V2aWMuY29tAAoJEJcWBB68zq/xxJcQAJu0uxaHTF8V0omEiKtsdXqkyjLlcP5y
+f4qOmGh3wdZuqpIBZWkFKQOCHsI5qHeCzZpC7myoC3uHfJn7kSWdiAgf+6oxKU9z
+SAD3SAtHnqvJ8qrwfp64EZNMFgxHA4vUI1Vvs+b92q4tRYRN2U5l+jbc8bjpoJNs
+LKb6Ce7txeqMh+HZLDH3Y4cpTUnI6cgf5uxjh8SGr8QR3e5+E3aBNnl55qxMusB5
+7ghrvSnPiPVoDDLTDsL1x4u930Bjohz/OUpaq4GF2akIy9lWUxHmkBOoB+gpn1Lu
+d/Tib70xM+vwEoi36wIw2reBTl+QhtmKMS+3Usg4Gl2F34I/ddXEJkYHIWMEzpK8
+08q/5pdxbh758AgPh2vrasTJ6NUIGOlH+VbAXoxLFjWP1lv+ywxYX7o4503rNGUQ
+7AocZO9YDN6gGG2C7A+Q/r8of2d5AtyxlskHzQvPFkH/RBm73ggV5wjMBboz21cd
+ac1yxwDM6vqvLKnDYUM0dFjrI8ReCK/wRSRnhmzdOgo5aXAJk5vlRrUr00TqsaRK
+EZDJIzz7mBxxf4ILWn1LMfx3rPp+cRExBUlp1VjO0OEekQNEqP5zkQMeCy8P3Ad8
+oHV4M5LH/Dzvb4UWdR+gudpIWolHpT42I2P08NtLXH5+jd5DHqZRGt/oUWsAyajz
+sJCeZtdqhuyn
+=oHRo
+-----END PGP SIGNATURE-----
